@@ -1,0 +1,22 @@
+{
+  "name": "trab-yama",
+  "version": "1.0.0",
+  "description": "yamagod",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/korxx/software_t2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/korxx/software_t2/issues"
+  },
+  "homepage": "https://github.com/korxx/software_t2#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
