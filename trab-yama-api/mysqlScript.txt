@@ -1,0 +1,23 @@
+create table pedido(
+    numero int unsigned not null auto_increment,
+    data_pedido date not null,
+    nome_cliente varchar(30) not null,
+    primary key(numero)
+);
+
+
+create table produto(
+    codigo int unsigned not null auto_increment,
+    descricao varchar(30) not null,
+    preco float not null,
+    primary key(codigo)
+);
+
+
+create table pedido_produto (
+    codigo_produto int unsigned not null,
+    numero_pedido int unsigned not null,
+    CONSTRAINT pedido_produto_pedido foreign key (numero_pedido) references pedido(numero),
+    CONSTRAINT pedido_produto_produto foreign key (codigo_produto) references produto(codigo),
+    CONSTRAINT pedido_produto_unique UNIQUE (codigo_produto, numero_pedido)
+)
