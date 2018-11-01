@@ -2,7 +2,7 @@ const produtoDao = require("./produtoDAO");
 
 produto = {
   descricao: "produto x",
-  preco: "20"
+  preco: 20
 };
 
 produtoBO = {

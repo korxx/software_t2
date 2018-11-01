@@ -10,11 +10,8 @@ const produtoDao = {
 };
 
 function insertProduto(produto) {
-  let sql = `USE yamagod;
-   INSERT INTO produto (descricao, preco)
-   VALUES ('${produto.descricao}', ${produto.preco});`;
-  console.log(sql);
-  con.query(sql, (err, res) => {
+  let sql = "INSERT INTO produto SET ?";
+  con.query(sql, produto, (err, res) => {
     if (err) throw err;
     console.log("insert concluido", res);
   });
