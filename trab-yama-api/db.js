@@ -6,4 +6,4 @@ var con = mysql.createConnection({
   password: "1234"
 });
 
-export default con;
+module.exports = con;

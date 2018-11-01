@@ -1,5 +1,5 @@
-import con from "../db";
+const con = require("../db");
 
 const pedidoDao = {};
 
-export default pedidoDao;
+module.exports = pedidoDao;

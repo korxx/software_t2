@@ -1,1 +1,1 @@
-import pedidoDao from "./pedidoDAO";
+const pedidoDao = require("./pedidoDAO");
