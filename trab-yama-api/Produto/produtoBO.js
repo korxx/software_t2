@@ -1,12 +1,12 @@
 const produtoDao = require("./produtoDAO");
 
-produto = {
-  descricao: "produto x",
-  preco: 20
-};
-
 produtoBO = {
-  insert: () => produtoDao.insert(produto)
+  insert: produto => produtoDao.insert(produto),
+  delete: codigo => produtoDao.delete(codigo),
+  list: () => {
+    return produtoDao.list();
+  },
+  alter: produto => produtoDao.alter(produto)
 };
 
 module.exports = produtoBO;
