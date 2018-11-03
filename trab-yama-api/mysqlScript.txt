@@ -20,4 +20,6 @@ create table pedido_produto (
     CONSTRAINT pedido_produto_pedido foreign key (numero_pedido) references pedido(numero),
     CONSTRAINT pedido_produto_produto foreign key (codigo_produto) references produto(codigo),
     CONSTRAINT pedido_produto_unique UNIQUE (codigo_produto, numero_pedido)
-)
+);
+
+ALTER TABLE pedido_produto ADD COLUMN quantidade float not null;

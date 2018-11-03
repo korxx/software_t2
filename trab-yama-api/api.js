@@ -12,6 +12,7 @@ app.use(
     extended: true
   })
 );
+app.use(bodyParser.json());
 app.use(cors());
 
 const port = 3000;

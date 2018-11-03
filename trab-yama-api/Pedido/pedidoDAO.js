@@ -12,6 +12,10 @@ const pedidoDao = {
   },
   alter: pedido => {
     return alterPedido(pedido);
+  },
+
+  insetPedidoProduto: pedidoProduto => {
+    return insertPedidoProduto(pedidoProduto);
   }
 };
 
@@ -49,6 +53,19 @@ function alterPedido(pedido) {
     con.query(
       "UPDATE pedido SET ? WHERE numero = ?",
       [pedido, pedido.numero],
+      (err, result) => {
+        if (err) throw err;
+        resolve(result);
+      }
+    );
+  });
+}
+
+function insertPedidoProduto(pedidoProduto) {
+  return new Promise(resolve => {
+    con.query(
+      "INSERT INTO pedido_produto (codigo_produto,quantidade,numero_pedido) VALUES ?",
+      [pedidoProduto],
       (err, result) => {
         if (err) throw err;
         resolve(result);
