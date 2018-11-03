@@ -2,32 +2,36 @@ const con = require("../db");
 
 const produtoDao = {
   insert: produto => {
-    insertProduto(produto);
+    return insertProduto(produto);
   },
   delete: id => {
-    deleteProduto(id);
+    return deleteProduto(id);
   },
   list: () => {
     return listProdutos();
   },
   alter: produto => {
-    alterProduto(produto);
+    return alterProduto(produto);
   }
 };
 
 function insertProduto(produto) {
-  let sql = "INSERT INTO produto SET ?";
-  con.query(sql, produto, (err, res) => {
-    if (err) throw err;
-    console.log("insert concluido", res);
+  return new Promise(resolve => {
+    let sql = "INSERT INTO produto SET ?";
+    con.query(sql, produto, (err, result) => {
+      if (err) throw err;
+      resolve(result);
+    });
   });
 }
 
 function deleteProduto(codigo) {
-  let sql = `DELETE FROM produto WHERE codigo = '${codigo}'`;
-  con.query(sql, (err, result) => {
-    if (err) throw err;
-    console.log(`${result.affectedRows} registros deletados`);
+  return new Promise(resolve => {
+    let sql = `DELETE FROM produto WHERE codigo = '${codigo}'`;
+    con.query(sql, (err, result) => {
+      if (err) throw err;
+      resolve(result);
+    });
   });
 }
 
@@ -41,14 +45,16 @@ function listProdutos() {
 }
 
 function alterProduto(produto) {
-  con.query(
-    "UPDATE produto SET ? WHERE codigo = ?",
-    [produto, produto.codigo],
-    (err, result) => {
-      if (err) throw err;
-      console.log(result);
-    }
-  );
+  return new Promise(resolve => {
+    con.query(
+      "UPDATE produto SET ? WHERE codigo = ?",
+      [produto, produto.codigo],
+      (err, result) => {
+        if (err) throw err;
+        resolve(result);
+      }
+    );
+  });
 }
 
 module.exports = produtoDao;
