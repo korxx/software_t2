@@ -18,7 +18,9 @@ router.delete("/", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  let result = await produtoBO.list().catch(err => res.status(400).send(err));
+  let result = await produtoBO
+    .list(req.query.numero)
+    .catch(err => res.status(400).send(err));
   res.status(200).send(result);
 });
 

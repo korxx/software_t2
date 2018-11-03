@@ -23,3 +23,7 @@ create table pedido_produto (
 );
 
 ALTER TABLE pedido_produto ADD COLUMN quantidade float not null;
+
+ALTER TABLE pedido_produto DROP FOREIGN KEY pedido_produto_pedido;
+
+ALTER TABLE pedido_produto ADD FOREIGN KEY pedido_produto_pedido (numero_pedido) references pedido(numero) on DELETE CASCADE;

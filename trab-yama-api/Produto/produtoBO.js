@@ -7,8 +7,8 @@ produtoBO = {
   delete: codigo => {
     return produtoDao.delete(codigo);
   },
-  list: () => {
-    return produtoDao.list();
+  list: numeroPedido => {
+    return produtoDao.list(numeroPedido);
   },
   alter: produto => {
     return produtoDao.alter(produto);

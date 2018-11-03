@@ -7,8 +7,12 @@ const produtoDao = {
   delete: id => {
     return deleteProduto(id);
   },
-  list: () => {
-    return listProdutos();
+  list: numeroPedido => {
+    if (numeroPedido) {
+      return listProdutosPorPedido(numeroPedido);
+    } else {
+      return listProdutos();
+    }
   },
   alter: produto => {
     return alterProduto(produto);
@@ -41,6 +45,19 @@ function listProdutos() {
       if (err) throw err;
       resolve(result);
     });
+  });
+}
+
+function listProdutosPorPedido(numeroPedido) {
+  return new Promise(resolve => {
+    con.query(
+      "select pb.*, produto.* from pedido_produto as pb inner join produto on produto.codigo = pb.codigo_produto where pb.numero_pedido = ?",
+      numeroPedido,
+      (err, result) => {
+        if (err) throw err;
+        resolve(result);
+      }
+    );
   });
 }
 
