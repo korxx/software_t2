@@ -12,6 +12,7 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
+  TextField,
 } from '@material-ui/core';
 
 import { Delete as DeleteIcon, Add as AddIcon } from '@material-ui/icons';
@@ -39,6 +40,15 @@ const styles = theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
   },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
 });
 
 const API = 'http://localhost:3006/';
@@ -48,6 +58,8 @@ class ProductList extends Component {
     open: false,
     loading: true,
     posts: [],
+    descricao: 'Nome do produto',
+    preco: 0,
   };
 
   componentDidMount() {
@@ -76,6 +88,12 @@ class ProductList extends Component {
     }
   }
   
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
   handleOpen = () => {
      this.setState({ open: true });     
    };
@@ -83,6 +101,24 @@ class ProductList extends Component {
    handleClose = () => {
      this.setState({ open: false });
    };
+   
+   postProduct = () => {
+     let product = {
+       descricao: this.state.descricao,
+       preco: this.state.preco,
+     }
+     console.log(product)
+     this.fetch('POST','produto',product)
+     
+     this.setState(
+       {
+         open: false,
+         descricao: 'Nome do produto',
+         preco: 0,
+       }
+     )
+     this.getProducts()
+   }
 
    getModalStyle() {
      const top = 50 
@@ -144,7 +180,31 @@ class ProductList extends Component {
             open={this.state.open}
             onClose={this.handleClose}
             >
-              <div style={this.getModalStyle()} className={classes.paper}><h1>Eminem</h1></div>
+              <div style={this.getModalStyle()} className={classes.paper}>
+                <form className={classes.container} noValidate autoComplete="off">
+                  <TextField
+                    id="standard-name"
+                    label="Descrição"
+                    className={classes.textField}
+                    name="descricao"
+                    value={this.state.descricao}
+                    margin="normal"
+                    onChange={this.handleChange('descricao')}
+                  />
+                  <TextField
+                    id="standard-value"
+                    label="Valor"
+                    name="preco"
+                    value={this.state.preco}
+                    className={classes.textField}
+                    onChange={this.handleChange('preco')}
+                    margin="normal"
+                  />
+                  <Button onClick={this.postProduct}>
+                    Cadastrar!
+                  </Button>
+                </form>
+              </div>
             </Modal>
               
         </Fragment>  

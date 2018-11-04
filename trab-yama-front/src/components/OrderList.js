@@ -11,6 +11,7 @@ import {
   ListItem,
   Modal,
   ListItemText,
+  TextField,
   ListItemSecondaryAction,
 } from '@material-ui/core';
 
@@ -39,6 +40,15 @@ const styles = theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
   },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
 });
 
 const API = 'http://localhost:3006/';
@@ -48,6 +58,8 @@ class OrderList extends Component {
     open: false,
     loading: true,
     posts: [],
+    data_pedido: '',
+    nome_cliente: 'Nome',
   };
 
   componentDidMount() {
@@ -61,6 +73,12 @@ class OrderList extends Component {
     this.getOrders()
   }
   
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+  
   handleOpen = () => {
      this.setState({ open: true });     
    };
@@ -68,6 +86,24 @@ class OrderList extends Component {
    handleClose = () => {
      this.setState({ open: false });
    };
+   
+   postOrder = () => {
+     let order = {
+       data_pedido: this.state.data_pedido,
+       nome_cliente: this.state.nome_cliente,
+     }
+     console.log(order)
+     this.fetch('POST','pedido', order)
+     
+     this.setState(
+       {
+         open: false,
+         data_pedido: '',
+         nome_cliente: 'Nome',
+       }
+     )
+     this.getOrders()
+   }
 
    getModalStyle() {
      const top = 50 
@@ -143,7 +179,31 @@ class OrderList extends Component {
             open={this.state.open}
             onClose={this.handleClose}
             >
-              <div style={this.getModalStyle()} className={classes.paper}><h1>Eminem</h1></div>
+              <div style={this.getModalStyle()} className={classes.paper}>
+                <form className={classes.container} noValidate autoComplete="off">
+                  <TextField
+                    id="standard_date"
+                    label="Data do pedido"
+                    className={classes.textField}
+                    name="data_pedido"
+                    value={this.state.data_pedido}
+                    margin="normal"
+                    onChange={this.handleChange('data_pedido')}
+                  />
+                  <TextField
+                    id="standard_name"
+                    label="Nome"
+                    name="nome_cliente"
+                    value={this.state.nome_cliente}
+                    className={classes.textField}
+                    onChange={this.handleChange('nome_cliente')}
+                    margin="normal"
+                  />
+                  <Button onClick={this.postOrder}>
+                    Cadastrar!
+                  </Button>
+                </form>
+              </div>
             </Modal>
             
         </Fragment>  
