@@ -20,41 +20,41 @@ const pedidoDao = {
 };
 
 function insertPedido(pedido) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     let sql = "INSERT INTO pedido SET ?";
     con.query(sql, pedido, (err, result) => {
-      if (err) throw err;
+      if (err) reject(err);
       resolve(result);
     });
   });
 }
 
 function deletePedido(numero) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     let sql = `DELETE FROM pedido WHERE numero = '${numero}'`;
     con.query(sql, (err, result) => {
-      if (err) throw err;
+      if (err) reject(err);
       resolve(result);
     });
   });
 }
 
 function listPedido() {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     con.query("SELECT * FROM pedido", (err, result) => {
-      if (err) throw err;
+      if (err) reject(err);
       resolve(result);
     });
   });
 }
 
 function alterPedido(pedido) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     con.query(
       "UPDATE pedido SET ? WHERE numero = ?",
       [pedido, pedido.numero],
       (err, result) => {
-        if (err) throw err;
+        if (err) reject(err);
         resolve(result);
       }
     );
@@ -62,12 +62,12 @@ function alterPedido(pedido) {
 }
 
 function insertPedidoProduto(pedidoProduto) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     con.query(
       "INSERT INTO pedido_produto (codigo_produto,quantidade,numero_pedido) VALUES ?",
       [pedidoProduto],
       (err, result) => {
-        if (err) throw err;
+        if (err) reject(err);
         resolve(result);
       }
     );

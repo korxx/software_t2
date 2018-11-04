@@ -20,41 +20,41 @@ const produtoDao = {
 };
 
 function insertProduto(produto) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     let sql = "INSERT INTO produto SET ?";
     con.query(sql, produto, (err, result) => {
-      if (err) throw err;
+      if (err) reject(err);
       resolve(result);
     });
   });
 }
 
 function deleteProduto(codigo) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     let sql = `DELETE FROM produto WHERE codigo = '${codigo}'`;
     con.query(sql, (err, result) => {
-      if (err) throw err;
+      if (err) reject(err);
       resolve(result);
     });
   });
 }
 
 function listProdutos() {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     con.query("SELECT * FROM produto", (err, result) => {
-      if (err) throw err;
+      if (err) reject(err);
       resolve(result);
     });
   });
 }
 
 function listProdutosPorPedido(numeroPedido) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     con.query(
       "select pb.*, produto.* from pedido_produto as pb inner join produto on produto.codigo = pb.codigo_produto where pb.numero_pedido = ?",
       numeroPedido,
       (err, result) => {
-        if (err) throw err;
+        if (err) reject(err);
         resolve(result);
       }
     );
@@ -62,12 +62,12 @@ function listProdutosPorPedido(numeroPedido) {
 }
 
 function alterProduto(produto) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     con.query(
       "UPDATE produto SET ? WHERE codigo = ?",
       [produto, produto.codigo],
       (err, result) => {
-        if (err) throw err;
+        if (err) reject(err);
         resolve(result);
       }
     );
