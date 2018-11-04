@@ -26,8 +26,8 @@ const App = ({ classes }) => (
         <CssBaseline />
         <AppHeader />
         <main className={classes.main}>
-          <Route exact path="/pedidos" component={OrderManager} />
-          <Route exact path="/produtos" component={ProductManager} />
+          <Route exact path="/pedido" component={OrderManager} />
+          <Route exact path="/produto" component={ProductManager} />
         </main>
       </Fragment>
   </Router>

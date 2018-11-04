@@ -24,8 +24,8 @@ const AppHeader = ({ classes }) => (
           <Typography variant="title" color="inherit">
             Crud do Yama
           </Typography>
-          <Button color="inherit" component={Link} to="/produtos">Produtos</Button>
-          <Button color="inherit" component={Link} to="/pedidos">Pedidos</Button>
+          <Button color="inherit" component={Link} to="/produto">Produtos</Button>
+          <Button color="inherit" component={Link} to="/pedido">Pedidos</Button>
           <div className={classes.flex} />
         </Toolbar>
       </AppBar>

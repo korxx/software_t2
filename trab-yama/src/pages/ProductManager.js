@@ -84,7 +84,7 @@ class ProductManager extends Component {
   }
 
   renderPostEditor = ({ match: { params: { codigo } } }) => {
-    if (this.state.loading) return null;
+    // if (this.state.loading) return null;
     const product = find(this.state.posts, { codigo: Number(codigo) });
 
     if (!product && codigo !== 'new') return <Redirect to="produto" />;
@@ -132,7 +132,7 @@ class ProductManager extends Component {
             <AddIcon />
           </Button>
           <Router>
-            <Route exact path="produto/:id" render={this.renderPostEditor} />
+            <Route exact path="produto/:codigo" render={this.renderPostEditor} />
           </Router>
         </Fragment>  
     );

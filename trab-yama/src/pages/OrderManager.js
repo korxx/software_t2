@@ -65,31 +65,31 @@ class OrderManager extends Component {
     this.setState({ loading: false, posts: await this.fetch('get', 'pedido') });
   }
 
-  savePost = async (product) => {
-    if (product.codigo) {
-      await this.fetch('put', `pedido/${product.codigo}`, product);
+  savePost = async (order) => {
+    if (order.numero) {
+      await this.fetch('put', `pedido/${order.numero}`, order);
     } else {
-      await this.fetch('post', 'pedido', product);
+      await this.fetch('post', 'pedido', order);
     }
 
     this.props.history.goBack();
     this.getPosts();
   }
 
-  async deletePost(product) {
-    if (window.confirm(`Certeza que quer deletar o pedido "${product.descricao}"`)) {
-      await this.fetch('delete', `pedido/${product.codigo}`);
+  async deletePost(order) {
+    if (window.confirm(`Certeza que quer deletar o pedido "${order.descricao}"`)) {
+      await this.fetch('delete', `pedido/${order.numero}`);
       this.getPosts();
     }
   }
 
-  renderPostEditor = ({ match: { params: { codigo } } }) => {
+  renderPostEditor = ({ match: { params: { numero } } }) => {
     if (this.state.loading) return null;
-    const product = find(this.state.posts, { codigo: Number(codigo) });
+    const order = find(this.state.posts, { numero: Number(numero) });
 
-    if (!product && codigo !== 'new') return <Redirect to="pedido" />;
+    if (!order && numero !== 'new') return <Redirect to="pedido" />;
 
-    return <PostEditor post={product} onSave={this.savePost} />;
+    return <PostEditor post={order} onSave={this.savePost} />;
   };
 
   render() {
@@ -102,15 +102,15 @@ class OrderManager extends Component {
           {1 > 0 ? (
             <Paper elevation={1} className={classes.posts}>
               <List>
-                {orderBy(this.state.posts, ['descricao'], ['asc']).map(product => (
-                  <ListItem key={product.codigo} button component={Link} to={`pedido/${product.codigo}`}>
+                {orderBy(this.state.posts, ['descricao'], ['asc']).map(order => (
+                  <ListItem key={order.numero} button component={Link} to={`pedido/${order.numero}`}>
                     <ListItemText>
-                    <p><h4>Código: </h4>{product.codigo}</p>
-                    <p><h4>Descrição: </h4>{product.descricao}</p>
-                    <p><h4>Valor: </h4>{product.preco}</p>
+                    <p><h4>Código: </h4>{order.numero}</p>
+                    <p><h4>Data: </h4>{order.data_pedido}</p>
+                    <p><h4>Cliente: </h4>{order.nome_cliente}</p>
                     </ListItemText>
                     <ListItemSecondaryAction>
-                      <IconButton onClick={() => this.deletePost(product)} color="inherit">
+                      <IconButton onClick={() => this.deletePost(order)} color="inherit">
                         <DeleteIcon />
                       </IconButton>
                     </ListItemSecondaryAction>
