@@ -44,8 +44,11 @@ class OrderList extends Component {
     this.getOrders();
   }
   
-  deleteOrder() {
-    console.log("TODO // Delete Orders")
+  deleteOrder(order) {
+    if (window.confirm(`Certeza que quer deletar o produto "${order.descricao}"`)) {
+      this.fetch('DELETE', 'pedido', order)
+    }
+    this.getOrders()
   }
 
   async fetch(method, endpoint, body) {
@@ -71,9 +74,8 @@ class OrderList extends Component {
     const { classes } = this.props;
     return (
         <Fragment>
-        
-          <Typography variant="display1">Produtos</Typography>
-          {this.state.posts != null ? (
+          <Typography variant="display1">Pedidos</Typography>
+          {this.state.posts.length > 0 ? (
             <Paper elevation={1} className={classes.posts}>
               <List>
                 {orderBy(this.state.posts, ['descricao'], ['asc']).map(pedido => (
@@ -84,7 +86,7 @@ class OrderList extends Component {
                       <p><h4>Cliente: </h4>{pedido.nome_cliente}</p>
                     </ListItemText>
                     <ListItemSecondaryAction>
-                      <IconButton onClick={() => this.deleteOrder()} color="inherit">
+                      <IconButton onClick={() => this.deleteOrder(pedido)} color="inherit">
                         <DeleteIcon />
                       </IconButton>
                     </ListItemSecondaryAction>

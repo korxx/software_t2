@@ -44,8 +44,11 @@ class ProductList extends Component {
     this.getProducts();
   }
   
-  deleteProduct() {
-    console.log("TODO // Delete Products")
+  deleteProduct(product) {
+    if (window.confirm(`Certeza que quer deletar o produto "${product.descricao}"`)) {
+      this.fetch('DELETE', 'produto', product)
+    }
+    this.getProducts()
   }
 
   async fetch(method, endpoint, body) {
@@ -73,7 +76,7 @@ class ProductList extends Component {
         <Fragment>
         
           <Typography variant="display1">Produtos</Typography>
-          {this.state.posts != null ? (
+          {this.state.posts.length > 0 ? (
             <Paper elevation={1} className={classes.posts}>
               <List>
                 {orderBy(this.state.posts, ['descricao'], ['asc']).map(product => (
@@ -84,7 +87,7 @@ class ProductList extends Component {
                       <p><h4>Valor: </h4>{product.preco}</p>
                     </ListItemText>
                     <ListItemSecondaryAction>
-                      <IconButton onClick={() => this.deleteProduct()} color="inherit">
+                      <IconButton onClick={() => this.deleteProduct(product)} color="inherit">
                         <DeleteIcon />
                       </IconButton>
                     </ListItemSecondaryAction>
