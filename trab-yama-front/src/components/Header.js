@@ -16,7 +16,7 @@ const styles = {
   },
 };
 
-const AppHeader = ({ classes }) => (
+const Header = ({ classes }) => (
   <Router>
     <Fragment>
       <AppBar position="static">
@@ -33,4 +33,4 @@ const AppHeader = ({ classes }) => (
   </Router>
 );
 
-export default withStyles(styles)(AppHeader);
+export default withStyles(styles)(Header)
