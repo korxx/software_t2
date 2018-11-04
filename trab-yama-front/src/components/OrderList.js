@@ -34,18 +34,18 @@ const styles = theme => ({
 
 const API = 'http://localhost:3006/';
 
-class ProductList extends Component {
+class OrderList extends Component {
   state = {
     loading: true,
     posts: [],
   };
 
   componentDidMount() {
-    this.getProducts();
+    this.getOrders();
   }
   
-  deleteProduct() {
-    console.log("TODO // Delete Products")
+  deleteOrder() {
+    console.log("TODO // Delete Orders")
   }
 
   async fetch(method, endpoint, body) {
@@ -63,8 +63,8 @@ class ProductList extends Component {
     }
   }
 
-  async getProducts() {
-    this.setState({ loading: false, posts: await this.fetch('get', 'produto') });
+  async getOrders() {
+    this.setState({ loading: false, posts: await this.fetch('get', 'pedido') });
   }
   
   render() {
@@ -76,15 +76,15 @@ class ProductList extends Component {
           {this.state.posts != null ? (
             <Paper elevation={1} className={classes.posts}>
               <List>
-                {orderBy(this.state.posts, ['descricao'], ['asc']).map(product => (
-                  <ListItem key={product.codigo} button component={Link} to={`produto/${product.codigo}`}>
+                {orderBy(this.state.posts, ['descricao'], ['asc']).map(pedido => (
+                  <ListItem key={pedido.numero} button component={Link} to={`pedido/${pedido.numero}`}>
                     <ListItemText>
-                      <p><h4>Código: </h4>{product.codigo}</p>
-                      <p><h4>Descrição: </h4>{product.descricao}</p>
-                      <p><h4>Valor: </h4>{product.preco}</p>
+                      <p><h4>Número: </h4>{pedido.numero}</p>
+                      <p><h4>Data do pedido: </h4>{pedido.data_pedido}</p>
+                      <p><h4>Cliente: </h4>{pedido.nome_cliente}</p>
                     </ListItemText>
                     <ListItemSecondaryAction>
-                      <IconButton onClick={() => this.deleteProduct()} color="inherit">
+                      <IconButton onClick={() => this.deleteOrder()} color="inherit">
                         <DeleteIcon />
                       </IconButton>
                     </ListItemSecondaryAction>
@@ -93,7 +93,7 @@ class ProductList extends Component {
               </List>
             </Paper>
           ) : (
-            !this.state.loading && <Typography variant="subheading">Nenhum produto cadastrado</Typography>
+            !this.state.loading && <Typography variant="subheading">Nenhum pedido cadastrado</Typography>
           )}
         </Fragment>  
     );
@@ -103,4 +103,4 @@ class ProductList extends Component {
 export default compose(
   withRouter,
   withStyles(styles),
-)(ProductList);
+)(OrderList);
