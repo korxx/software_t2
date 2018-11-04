@@ -9,7 +9,6 @@ import {
   TextField,
 } from '@material-ui/core';
 import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
 import { Form, Field } from 'react-final-form';
 
 const styles = theme => ({
@@ -69,6 +68,5 @@ const PostEditor = ({ classes, post, onSave, history }) => (
 );
 
 export default compose(
-  withRouter,
   withStyles(styles),
 )(PostEditor);
