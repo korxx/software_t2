@@ -55,7 +55,7 @@ class OrderManager extends Component {
           'content-type': 'application/json',
         },
       });
-      return await response.json();
+      return await response.JSON();
     } catch (error) {
       console.error(error);
     }
@@ -132,7 +132,7 @@ class OrderManager extends Component {
             <AddIcon />
           </Button>
           <Router>
-            <Route exact path="pedido/:id" render={this.renderPostEditor} />
+            <Route exact path="pedido/:codigo" render={this.renderPostEditor} />
           </Router>
         </Fragment>  
     );

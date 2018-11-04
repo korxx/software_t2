@@ -83,20 +83,23 @@ class ProductManager extends Component {
     }
   }
 
-  renderPostEditor = ({ match: { params: { codigo } } }) => {
+  renderPostEditor = (codigo) => {
+    console.log("funciona")
     // if (this.state.loading) return null;
     const product = find(this.state.posts, { codigo: Number(codigo) });
 
     if (!product && codigo !== 'new') return <Redirect to="produto" />;
 
-    return <PostEditor post={product} onSave={this.savePost} />;
+    return <h1> Vai merda</h1>;
   };
 
   render() {
     const { classes } = this.props;
     return (
         <Fragment>  
-        <h1 onClick={() => this.getPosts()}> Beterraba </h1>
+        <h1 onClick={() => this.deletePost(this.state.posts[1])}> Teste_Delete </h1>
+        
+        <h1 onClick={() => this.renderPostEditor(this.state.posts[1].codigo)}> Teste_PostEditor </h1>
         
           <Typography variant="display1">Produtos</Typography>
           {1 > 0 ? (
@@ -132,7 +135,7 @@ class ProductManager extends Component {
             <AddIcon />
           </Button>
           <Router>
-            <Route exact path="produto/:codigo" render={this.renderPostEditor} />
+            <Route exact path="/produto/new" render={this.renderPostEditor} />
           </Router>
         </Fragment>  
     );
