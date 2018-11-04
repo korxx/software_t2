@@ -5,7 +5,7 @@ const cors = require("cors");
 const produtoRoutes = require("./Produto/produtoRoutes");
 const pedidoRoutes = require("./Pedido/pedidoRoutes");
 
-const app = express();
+const app = express().use("*",cors());;
 
 app.use(
   bodyParser.urlencoded({
@@ -15,7 +15,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(cors());
 
-const port = 3000;
+const port = 3006;
 
 app.listen(port, () => console.log(`ouvindo ${port}!`));
 app.use("/produto", produtoRoutes);
