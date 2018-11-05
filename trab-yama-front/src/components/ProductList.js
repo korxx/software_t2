@@ -51,10 +51,12 @@ const styles = theme => ({
   },
 });
 
-const API = 'http://localhost:3006/';
+const API = 'http://localhost:3001/';
 
 class ProductList extends Component {
   state = {
+    codigo: 0,
+    openUpdate: false,
     open: false,
     loading: true,
     posts: [],
@@ -72,6 +74,38 @@ class ProductList extends Component {
     }
     this.getProducts()
   }
+  
+  updateProduct(product) {
+    this.setState(
+      {
+        openUpdate: true,
+        codigo: product.codigo,
+        descricao: product.descricao,
+        preco: product.preco,
+      }
+    )
+  }
+  
+  
+  putProduct = () => {
+    let order = {
+      codigo: this.state.codigo,
+      descricao: this.state.descricao,
+      preco: this.state.preco,
+    }
+    this.fetch('PUT','produto', order)
+    
+    this.setState(
+      {
+        openUpdate: false,
+        codigo: '',
+        preco: 'Nome',
+        descricao: '',
+      }
+    )
+    this.getProducts()
+  }
+  
   
   async fetch(method, endpoint, body) {
     try {
@@ -145,7 +179,7 @@ class ProductList extends Component {
             <Paper elevation={1} className={classes.posts}>
               <List>
                 {orderBy(this.state.posts, ['descricao'], ['asc']).map(product => (
-                  <ListItem key={product.codigo} button component={Link} to={`produto/${product.codigo}`}>
+                  <ListItem key={product.codigo} button onClick={() => this.updateProduct(product)}>
                     <ListItemText>
                       <p><h4>Código: </h4>{product.codigo}</p>
                       <p><h4>Descrição: </h4>{product.descricao}</p>
@@ -207,6 +241,39 @@ class ProductList extends Component {
               </div>
             </Modal>
               
+              
+            <Modal
+             aria-labelledby="simple-modal-title"
+             aria-describedby="simple-modal-description"
+             open={this.state.openUpdate}
+             onClose={this.handleClose}
+             >
+               <div style={this.getModalStyle()} className={classes.paper}>
+                 <form className={classes.container} noValidate autoComplete="off">
+                   <TextField
+                     id="standard-name"
+                     label="Descrição"
+                     className={classes.textField}
+                     name="descricao"
+                     value={this.state.descricao}
+                     margin="normal"
+                     onChange={this.handleChange('descricao')}
+                   />
+                   <TextField
+                     id="standard-value"
+                     label="Valor"
+                     name="preco"
+                     value={this.state.preco}
+                     className={classes.textField}
+                     onChange={this.handleChange('preco')}
+                     margin="normal"
+                   />
+                   <Button onClick={this.putProduct}>
+                     Atualizar!
+                   </Button>
+                 </form>
+               </div>
+             </Modal>
         </Fragment>  
     );
   }
