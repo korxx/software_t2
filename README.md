@@ -24,12 +24,11 @@
 <h4>Tecnologia: JS</h4>
 
 <h4>End Points</h4>
-<hr>
-<p>get /pedido</p> 
-<p>Lista todos pedidos.</p>
-<hr>
-<p>delete /pedido + body = {"numero": 1}</p>
-<p>Deleta o pedido de numero 1 e suas ligações na tabela pedido_produto.</p>
+
+| End Point | Descrição|
+| --- | --- |
+| get /pedido | Lista todos pedidos.|
+| delete /pedido + body = {"numero": 1} | Deleta o pedido de numero 1 e suas ligações na tabela pedido_produto.|
 
 put /pedido + body = {"numero":1, "data_pedido": "2018-02-02", "nome_cliente": "yama"}, altera o pedido de numero 1 para ter as propriedades enviadas
 
