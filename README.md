@@ -25,19 +25,30 @@
 
 <h4>End Points</h4>
 
-| End Point | Descrição |
+| Pedido | Descrição |
 | --- | --- |
-| Pedido |  |
 | get /pedido | Lista todos pedidos. |
 | delete /pedido + body = {"numero": 1} | Deleta o pedido de numero 1 e suas ligações na tabela pedido_produto. |
 | put /pedido + body = {"numero":1, "data_pedido": "2018-02-02", "nome_cliente": "yama"} | Altera o pedido de numero 1 para ter as propriedades enviadas. |
 | post /pedido + body = {"data_pedido": "2018-02-02", "nome_cliente": "yama", listaProdutos =  [[2,2], [3,5]]} | Insere um pedido com uma lista de produtos onde a primeira posição do array é o codigo do produto e a segunda é a quantidade. |
 | get /produto?numero=1 | Lista todos produtos do pedido de numero 1. |
-| Produto |   | 
+
+| Produto | Descrição | 
+| --- | --- |
 | get /produto | Lista todos produtos, |
 | delete /produto + body = {"codigo": 1} | Deleta o produto de codigo 1 caso ele não esteja em nenhum pedido. |
 | put /produto + body = {"codigo": 1, "descricao": "produto x", "preco": 20} | Altera o produto de codigo 1 para ter as propriedades enviadas. |
 | post /produto + body  = { "descricao": "produto x", "preco": 20 } | Insere um produto. |
 
+<h4>Setup</h4>
+<h5>Requisitos</h5>
+<p>MySQL instalado</p>
+<h5>Backend</h5>
+<p>Iniciar: node api.js</p>
+<h5>Front</h5>
+<p>Instalar as dependencias: yarn </p>
+<p>Iniciar: yarn start</p>
+
+<hr>
 <h4>Trello</h4>
 <p>https://trello.com/b/HDnJaBCp/trabalho-do-yamaguti-o-bonzão</p>
