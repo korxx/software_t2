@@ -52,6 +52,7 @@
 <h4>Architecture</h4>
 <h5>Diagrama de Deploy</h5>
 
+![deploy diagram](https://github.com/korxx/software_t2/blob/master/docs/deploy_construcao_t2.png)
 
 <hr>
 <h4>Trello</h4>
