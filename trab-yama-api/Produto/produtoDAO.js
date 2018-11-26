@@ -1,5 +1,11 @@
 const con = require("../db");
 
+/*
+O código abaixo funciona como um switch que, 
+dependendod o método, chama a função desejada.
+e.g: insert -> insertProduto()
+*/
+
 const produtoDao = {
   insert: produto => {
     return insertProduto(produto);
@@ -19,6 +25,11 @@ const produtoDao = {
   }
 };
 
+/*
+insertProduto recebe um produto e chama
+a conexão com o banco passando o comando de insert 
+com esse produto
+*/
 function insertProduto(produto) {
   return new Promise((resolve, reject) => {
     let sql = "INSERT INTO produto SET ?";
@@ -29,6 +40,12 @@ function insertProduto(produto) {
   });
 }
 
+
+/*
+deleteProduto recebe um código e chama
+a conexão com o banco passando o comando de delete 
+com esse código
+*/
 function deleteProduto(codigo) {
   return new Promise((resolve, reject) => {
     let sql = `DELETE FROM produto WHERE codigo = '${codigo}'`;
@@ -39,6 +56,11 @@ function deleteProduto(codigo) {
   });
 }
 
+
+/*
+listProduto chama o banco com o comando
+de select *, que retorna todos os produtos cadastrados
+*/
 function listProdutos() {
   return new Promise((resolve, reject) => {
     con.query("SELECT * FROM produto", (err, result) => {
@@ -48,6 +70,13 @@ function listProdutos() {
   });
 }
 
+
+/*
+listProdutoPorPedido chama o banco com o comando
+de select *, com um join entre tabelas de pedidos e produtos
+que retorna todos os produtos cadastrados que existem
+para um pedido cadastrado
+*/
 function listProdutosPorPedido(numeroPedido) {
   return new Promise((resolve, reject) => {
     con.query(
@@ -61,6 +90,11 @@ function listProdutosPorPedido(numeroPedido) {
   });
 }
 
+/*
+alterProduto recebe um produto e chama o banco com o comando
+de update, alterando uma entrada em que o código do produto seja
+igual ao do produto recebido
+*/
 function alterProduto(produto) {
   return new Promise((resolve, reject) => {
     con.query(
@@ -74,4 +108,4 @@ function alterProduto(produto) {
   });
 }
 
-module.exports = produtoDao;
+module.exports = produtoDao; // Expondo o produtoDAO
