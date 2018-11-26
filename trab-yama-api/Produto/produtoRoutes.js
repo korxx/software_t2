@@ -3,7 +3,14 @@ const produtoBO = require("./produtoBO");
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+/*
+Neste arquivo, são criadas as rotas web de POST, PUT, DELETE e GET
+cada uma delas possui um tratamento de erro que retorna
+erros HTTP caso a requisição venha com erro.
+Caso venha corretamente, chama a produtoBO que trata essas requsições.
+*/
+
+router.post("/", async (req, res) => { // Rota de POST
   produtoBO
     .insert(req.body)
     .then(
@@ -21,7 +28,7 @@ router.post("/", async (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-router.delete("/", async (req, res) => {
+router.delete("/", async (req, res) => { // Rota de DELETE
   produtoBO
     .delete(req.body.codigo)
     .then(
@@ -39,7 +46,7 @@ router.delete("/", async (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-router.get("/", async (req, res) => {
+router.get("/", async (req, res) => { // Rota de GET
   let { numero } = req.query;
   produtoBO
     .list(numero)
@@ -54,7 +61,7 @@ router.get("/", async (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-router.put("/", async (req, res) => {
+router.put("/", async (req, res) => { // Rota de PUT
   produtoBO
     .alter(req.body)
     .then(
@@ -72,4 +79,4 @@ router.put("/", async (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-module.exports = router;
+module.exports = router; // Expondo o router
