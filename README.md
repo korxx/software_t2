@@ -49,6 +49,10 @@
 <p>Instalar as dependencias: yarn </p>
 <p>Iniciar: yarn start</p>
 
+<h4>Architecture</h4>
+<h5>Diagrama de Deploy</h5>
+
+
 <hr>
 <h4>Trello</h4>
 <p>https://trello.com/b/HDnJaBCp/trabalho-do-yamaguti-o-bonzão</p>
